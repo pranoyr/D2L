@@ -40,11 +40,12 @@ def get_features(dataset, batch, num_images):
     # we'll also store the image labels and paths to visualize them later
     labels = []
     image_paths = []
-    images=[]
+    images_list=[]
 
     for batch in tqdm(dataloader, desc='Running the model inference'):
         print(batch['image'][0].shape)
         images = batch['image'].view(32,-1).to(device).numpy()
+        images_list.append(images)
         labels += batch['label']
         image_paths += batch['image_path']
 
