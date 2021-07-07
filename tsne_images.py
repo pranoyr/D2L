@@ -57,7 +57,7 @@ def get_features(dataset, batch, num_images):
         #     features = np.concatenate((features, images))
         # else:
         #     features = images
-    images = np.concatenate(images)
+    images = np.concatenate(images_list)
     return features, labels, image_paths
 
 
