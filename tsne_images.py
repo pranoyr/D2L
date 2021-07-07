@@ -52,11 +52,11 @@ def get_features(dataset, batch, num_images):
         #     output = model.forward(images)
 
         # current_features = output.cpu().numpy()
-        if features is not None:
-            features = np.concatenate((features, images))
-        else:
-            features = images
-
+        # if features is not None:
+        #     features = np.concatenate((features, images))
+        # else:
+        #     features = images
+    images = np.concatenate(images)
     return features, labels, image_paths
 
 
