@@ -27,7 +27,6 @@ class SETIDataset(data.Dataset):
 		self.num_classes = num_classes
 		self.root_dir = dataset_dir + '/train'
 		train_csv = dataset_dir + '/train_labels.csv'
-
 		self.data, _ = make_dataset(train_csv)
 
 	def __len__(self):

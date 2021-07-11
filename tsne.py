@@ -8,9 +8,10 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 from model import generate_model
 from dataset import get_data_loader
-
+from config import cfg
 # from animals_dataset import AnimalsDataset, collate_skip_empty, colors_per_class
 from resnet import ResNet101
+from config import cfg
 
 
 def fix_random_seeds():
@@ -92,7 +93,7 @@ def draw_rectangle_by_class(image, label):
     image_height, image_width, _ = image.shape
 
     # get the color corresponding to image class
-    color = colors_per_class[label]
+    color = cfg.COLORS_PER_CLASS[label]
     image = cv2.rectangle(image, (0, 0), (image_width - 1, image_height - 1), color=color, thickness=5)
 
     return image
@@ -156,7 +157,7 @@ def visualize_tsne_points(tx, ty, labels):
     ax = fig.add_subplot(111)
 
     # for every class, we'll add a scatter plot separately
-    for label in colors_per_class:
+    for label in cfg.COLORS_PER_CLASS:
         # find the samples of the current class in the data
         indices = [i for i, l in enumerate(labels) if l == label]
 
@@ -166,7 +167,7 @@ def visualize_tsne_points(tx, ty, labels):
 
         # convert the class color to matplotlib format:
         # BGR -> RGB, divide by 255, convert to np.array
-        color = np.array([colors_per_class[label][::-1]], dtype=np.float) / 255
+        color = np.array([cfg.COLORS_PER_CLASS[label][::-1]], dtype=np.float) / 255
 
         # add a scatter plot with the correponding color and label
         ax.scatter(current_tx, current_ty, c=color, label=label)
