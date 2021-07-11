@@ -6,8 +6,10 @@ import random
 import numpy as np
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+from model import generate_model
+from dataset import get_data_loader
 
-from animals_dataset import AnimalsDataset, collate_skip_empty, colors_per_class
+# from animals_dataset import AnimalsDataset, collate_skip_empty, colors_per_class
 from resnet import ResNet101
 
 
@@ -18,21 +20,24 @@ def fix_random_seeds():
     np.random.seed(seed)
 
 
-def get_features(dataset, batch, num_images):
+def get_features(args):
     # move the input and model to GPU for speed if available
     if torch.cuda.is_available():
         device = 'cuda'
     else:
         device = 'cpu'
 
-    # initialize our implementation of ResNet
-    model = ResNet101(pretrained=True)
-    model.eval()
-    model.to(device)
+    if args.model_name:
+        # initialize our implementation of ResNet
+        # model = ResNet101(pretrained=True)
+        model = generate_model(args.name)
+        model.eval()
+        model.to(device)
 
     # read the dataset and initialize the data loader
-    dataset = AnimalsDataset(dataset, num_images)
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch, collate_fn=collate_skip_empty, shuffle=True)
+    # dataset = AnimalsDataset(dataset, num_images)
+    dataloader = get_data_loader(args)
+    # dataloader = torch.utils.data.DataLoader(dataset, batch_size=args.batch, collate_fn=collate_skip_empty, shuffle=True)
 
     # we'll store the features as NumPy array of size num_images x feature_size
     features = None
@@ -46,8 +51,9 @@ def get_features(dataset, batch, num_images):
         labels += batch['label']
         image_paths += batch['image_path']
 
-        with torch.no_grad():
-            output = model.forward(images)
+        if args.model_name:
+            with torch.no_grad():
+                output = model.forward(images)
 
         current_features = output.cpu().numpy()
         if features is not None:
@@ -191,18 +197,16 @@ def visualize_tsne(tsne, images, labels, plot_size=1000, max_image_size=100):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--path', type=str, default='data/raw-img')
     parser.add_argument('--batch', type=int, default=32)
     parser.add_argument('--num_images', type=int, default=500)
+    parser.add_argument('--dataset', type=str, help="Choose dataset", default=None)
+    parser.add_argument('--dataset_dir', type=str, help='Path to dataset', default=None)
+    parser.add_argument('--model', type=str, default=None)
     args = parser.parse_args()
 
     fix_random_seeds()
 
-    features, labels, image_paths = get_features(
-        dataset=args.path,
-        batch=args.batch,
-        num_images=args.num_images
-    )
+    features, labels, image_paths = get_features(args)
 
     tsne = TSNE(n_components=2).fit_transform(features)
 
