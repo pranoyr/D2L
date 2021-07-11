@@ -178,7 +178,7 @@ def visualize_tsne_points(tx, ty, labels):
     plt.show()
 
 
-def visualize_tsne(tsne, images, labels, plot_size=1000, max_image_size=100):
+def visualize_tsne(tsne, images, labels, args, plot_size=1000, max_image_size=100):
     # extract x and y coordinates representing the positions of the images on T-SNE plot
     tx = tsne[:, 0]
     ty = tsne[:, 1]
@@ -190,8 +190,10 @@ def visualize_tsne(tsne, images, labels, plot_size=1000, max_image_size=100):
     # visualize the plot: samples as colored points
     visualize_tsne_points(tx, ty, labels)
 
+
+    if args.visualise_images:
     # visualize the plot: samples as images
-    visualize_tsne_images(tx, ty, images, labels, plot_size=plot_size, max_image_size=max_image_size)
+        visualize_tsne_images(tx, ty, images, labels, plot_size=plot_size, max_image_size=max_image_size)
 
 
 def main():
@@ -203,6 +205,7 @@ def main():
     parser.add_argument('--dataset_dir', type=str, help='Path to dataset', default=None)
     parser.add_argument('--num_classes', type=int, default=2)
     parser.add_argument('--model', type=str, default=None)
+    parser.add_argument('--visualise_images', action='store_true')
     args = parser.parse_args()
 
     fix_random_seeds()
@@ -211,7 +214,7 @@ def main():
 
     tsne = TSNE(n_components=2).fit_transform(features)
 
-    visualize_tsne(tsne, image_paths, labels)
+    visualize_tsne(tsne, image_paths, labels, args)
 
 if __name__ == '__main__':
     main()
