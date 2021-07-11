@@ -11,6 +11,7 @@ def get_data_loader(args):
 		transforms.Resize((256,256))])
         train_data = SETIDataset(
             dataset_dir=args.dataset_dir,
+            num_images = args.num_images,
             num_classes=1,
             transform = transform
             )
@@ -33,6 +34,7 @@ def get_data_loader(args):
 
         train_data = AnimalsDataset(
             dataset_dir=args.dataset_dir,
+            num_images=args.num_images,
             transform = transform
             )
         data_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch, collate_fn=collate_skip_empty, shuffle=True)

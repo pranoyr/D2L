@@ -1,0 +1,1 @@
+python tsne.py --model ResidualNet-18 --dataset Animal-Dataset
