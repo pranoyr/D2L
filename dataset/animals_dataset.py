@@ -5,7 +5,6 @@ import random
 
 from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-from config import cfg
 
 
 # colors_per_class = {
@@ -20,15 +19,12 @@ from config import cfg
 #     'spider' : [0, 0, 0],
 #     'squirrel' : [100, 100, 255],
 # }
-cfg.COLORS_PER_CLASS = {
-    'withmask' : [254, 202, 87],
-    'withoutmask' : [255, 107, 107]
-}
+
 
 
 # processes Animals10 dataset: https://www.kaggle.com/alessiocorrado99/animals10
 class AnimalsDataset(torch.utils.data.Dataset):
-    def __init__(self, data_path, num_images=1000):
+    def __init__(self, dataset_dir, transform = None, num_images=1000):
         # translation = {'cane' : 'dog',
         #                'cavallo' : 'horse',
         #                'elefante' : 'elephant',
@@ -44,16 +40,16 @@ class AnimalsDataset(torch.utils.data.Dataset):
 
         self.classes = translation.values()
 
-        if not path.exists(data_path):
-            raise Exception(data_path + ' does not exist!')
+        if not path.exists(dataset_dir):
+            raise Exception(dataset_dir + ' does not exist!')
 
         self.data = []
 
-        folders = listdir(data_path)
+        folders = listdir(dataset_dir)
         for folder in folders:
             label = translation[folder]
 
-            full_path = path.join(data_path, folder)
+            full_path = path.join(dataset_dir, folder)
             images = listdir(full_path)
 
             current_data = [(path.join(full_path, image), label) for image in images]
@@ -70,14 +66,8 @@ class AnimalsDataset(torch.utils.data.Dataset):
         #     transforms.ToTensor(),
         #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         # ])
-        self.transform = transforms.Compose([
-            transforms.Resize((256)),
-            # transforms.RandomCrop(32, padding=3),
-            transforms.ColorJitter(brightness=[0.5,0.5]),
-            # transforms.RandomRotation(180),
-            # GaussianNoise(0.5),
-            transforms.ToTensor()
-            ])
+        
+        self.transform = transform
 
 
     def __len__(self):
