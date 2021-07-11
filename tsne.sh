@@ -1,1 +1,1 @@
-python tsne.py --model ResidualNet-18 --dataset Animal-Dataset
+# python tsne.py --model ResidualNet-18 --dataset Animal-Dataset --num_images 500 --dataset_dir <path-to-dataset> --num_classes 2
