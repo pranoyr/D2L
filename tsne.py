@@ -92,7 +92,7 @@ def draw_rectangle_by_class(image, label):
     image_height, image_width, _ = image.shape
 
     # get the color corresponding to image class
-    color = cfg.COLORS_PER_CLASS[label]
+    color = cfg.DATASET.COLORS_PER_CLASS[label]
     image = cv2.rectangle(image, (0, 0), (image_width - 1, image_height - 1), color=color, thickness=5)
 
     return image
@@ -156,7 +156,7 @@ def visualize_tsne_points(tx, ty, labels):
     ax = fig.add_subplot(111)
 
     # for every class, we'll add a scatter plot separately
-    for label in cfg.COLORS_PER_CLASS:
+    for label in cfg.DATASET.COLORS_PER_CLASS:
         # find the samples of the current class in the data
         indices = [i for i, l in enumerate(labels) if l == label]
 
@@ -166,7 +166,7 @@ def visualize_tsne_points(tx, ty, labels):
 
         # convert the class color to matplotlib format:
         # BGR -> RGB, divide by 255, convert to np.array
-        color = np.array([cfg.COLORS_PER_CLASS[label][::-1]], dtype=np.float) / 255
+        color = np.array([cfg.DATASET.COLORS_PER_CLASS[label][::-1]], dtype=np.float) / 255
 
         # add a scatter plot with the correponding color and label
         ax.scatter(current_tx, current_ty, c=color, label=label)

@@ -17,7 +17,7 @@ def get_data_loader(args):
             )
         data_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch, shuffle=True)
 
-        cfg.COLORS_PER_CLASS = {
+        cfg.DATASET.COLORS_PER_CLASS = {
                 '0' : [254, 202, 87],
                 '1' : [255, 107, 107]
         }
@@ -39,7 +39,7 @@ def get_data_loader(args):
             )
         data_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch, collate_fn=collate_skip_empty, shuffle=True)
 
-        cfg.COLORS_PER_CLASS = {
+        cfg.DATASET.COLORS_PER_CLASS = {
             'withmask' : [254, 202, 87],
             'withoutmask' : [255, 107, 107]
         }
