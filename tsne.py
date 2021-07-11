@@ -10,7 +10,6 @@ from model import generate_model
 from dataset import get_data_loader
 from config import cfg
 # from animals_dataset import AnimalsDataset, collate_skip_empty, colors_per_class
-from resnet import ResNet101
 from config import cfg
 
 
