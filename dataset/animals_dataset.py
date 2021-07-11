@@ -5,6 +5,7 @@ import random
 
 from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+from config import cfg
 
 
 # colors_per_class = {
@@ -19,7 +20,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 #     'spider' : [0, 0, 0],
 #     'squirrel' : [100, 100, 255],
 # }
-colors_per_class = {
+cfg.COLORS_PER_CLASS = {
     'withmask' : [254, 202, 87],
     'withoutmask' : [255, 107, 107]
 }
