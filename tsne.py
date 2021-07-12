@@ -30,7 +30,7 @@ def get_features(args):
     if args.model_name:
         # initialize our implementation of ResNet
         # model = ResNet101(pretrained=True)
-        model = generate_model(args.name, args.num_classes)
+        model = generate_model(args.model_name, args.num_classes)
         model.eval()
         model.to(device)
 
@@ -201,10 +201,10 @@ def main():
 
     parser.add_argument('--batch', type=int, default=32)
     parser.add_argument('--num_images', type=int, default=500)
-    parser.add_argument('--dataset', type=str, help="Choose dataset", default=None)
+    parser.add_argument('--dataset_name', type=str, help="Choose dataset", default=None)
     parser.add_argument('--dataset_dir', type=str, help='Path to dataset', default=None)
-    parser.add_argument('--num_classes', type=int, default=2)
-    parser.add_argument('--model', type=str, default=None)
+    parser.add_argument('--num_classes', type=int, default=1000)
+    parser.add_argument('--model_name', type=str, default=None)
     parser.add_argument('--visualise_images', action='store_true')
     args = parser.parse_args()
 

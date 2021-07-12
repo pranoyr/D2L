@@ -24,7 +24,7 @@ def get_data_loader(args):
 
     if args.dataset_name == 'Animal-Dataset':
         transform = transforms.Compose([
-            transforms.Resize((256)),
+            transforms.Resize((256,256)),
             # transforms.RandomCrop(32, padding=3),
             transforms.ColorJitter(brightness=[0.5,0.5]),
             # transforms.RandomRotation(180),
@@ -39,8 +39,20 @@ def get_data_loader(args):
             )
         data_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch, collate_fn=collate_skip_empty, shuffle=True)
 
+        # cfg.DATASET.COLORS_PER_CLASS = {
+        #     'withmask' : [254, 202, 87],
+        #     'withoutmask' : [255, 107, 107]
+        # }
         cfg.DATASET.COLORS_PER_CLASS = {
-            'withmask' : [254, 202, 87],
-            'withoutmask' : [255, 107, 107]
+            'dog' : [254, 202, 87],
+            'horse' : [255, 107, 107],
+            'elephant' : [10, 189, 227],
+            'butterfly' : [255, 159, 243],
+            'chicken' : [16, 172, 132],
+            'cat' : [128, 80, 128],
+            'cow' : [87, 101, 116],
+            'sheep' : [52, 31, 151],
+            'spider' : [0, 0, 0],
+            'squirrel' : [100, 100, 255],
         }
     return data_loader
