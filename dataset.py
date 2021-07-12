@@ -1,7 +1,7 @@
-from dataset.seti_dataset import SETIDataset
+from datasets.seti_dataset import SETIDataset
 import torch
 import torchvision.transforms as transforms
-from dataset.animals_dataset import AnimalsDataset, collate_skip_empty
+from datasets.animals_dataset import AnimalsDataset, collate_skip_empty
 from config import cfg
 
 
