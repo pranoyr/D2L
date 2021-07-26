@@ -26,7 +26,7 @@ def get_data_loader(args):
         transform = transforms.Compose([
             transforms.Resize((256,256)),
             # transforms.RandomCrop(32, padding=3),
-            transforms.ColorJitter(brightness=[0.5,0.5]),
+            # transforms.ColorJitter(brightness=[0.5,0.5]),
             # transforms.RandomRotation(180),
             # GaussianNoise(0.5),
             transforms.ToTensor()
@@ -43,16 +43,4 @@ def get_data_loader(args):
             'withmask' : [254, 202, 87],
             'withoutmask' : [255, 107, 107]
         }
-        # cfg.DATASET.COLORS_PER_CLASS = {
-        #     'dog' : [254, 202, 87],
-        #     'horse' : [255, 107, 107],
-        #     'elephant' : [10, 189, 227],
-        #     'butterfly' : [255, 159, 243],
-        #     'chicken' : [16, 172, 132],
-        #     'cat' : [128, 80, 128],
-        #     'cow' : [87, 101, 116],
-        #     'sheep' : [52, 31, 151],
-        #     'spider' : [0, 0, 0],
-        #     'squirrel' : [100, 100, 255],
-        # }
     return data_loader
