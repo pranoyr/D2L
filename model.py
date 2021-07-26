@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from models.residual_net import ResidualNet
 from models.resnet import ResNet101
-from models.resnet_full import resnet101, resnet152, resnet18, resnet34, resnet50
+from models.resnet_full import resnet101, resnet152, resnet18, resnet34, resnet50, resnet101
 from models.vgg import vgg11, vgg11_bn, vgg13, vgg13_bn, vgg16, vgg16_bn, vgg19, vgg19_bn
 
 def generate_model(model_name):
@@ -18,13 +18,14 @@ def generate_model(model_name):
 
 	if model_name == "Resnet-50":
 		model = resnet50(pretrained=True)
+
+	if model_name == "Resnet-101":
+		model = resnet101(pretrained=True)
 		
 	if model_name == "Resnet-152":
 		model = resnet152(pretrained=True)
 
-	if model_name == "Resnet-101":
-		model = ResNet101(pretrained=True)
-		
+	
 	# VGG
 	if model_name == "Vgg11":
 		model = vgg11(pretrained=True)
