@@ -8,11 +8,12 @@ from config import cfg
 def get_data_loader(args):
     if args.dataset_name == 'Seti-Dataset':
         transform = transforms.Compose([
-		transforms.Resize((256,256))])
+		transforms.Resize((256,256)),
+        transforms.ToTensor()])
+
         train_data = SETIDataset(
             dataset_dir=args.dataset_dir,
             num_images = args.num_images,
-            num_classes=1,
             transform = transform
             )
         data_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch, shuffle=True)
