@@ -21,31 +21,23 @@ def fix_random_seeds():
 
 
 def get_features(args):
-    # move the input and model to GPU for speed if available
     if torch.cuda.is_available():
         device = 'cuda'
     else:
         device = 'cpu'
 
+    # initialize the model
     if args.model_name:
-        # initialize our implementation of ResNet
-        # model = ResNet101(pretrained=True)
         model = generate_model(args.model_name)
         model.eval()
         model.to(device)
 
-    # read the dataset and initialize the data loader
-    # dataset = AnimalsDataset(dataset, num_images)
+    # load the data loader
     dataloader = get_data_loader(args)
-    # dataloader = torch.utils.data.DataLoader(dataset, batch_size=args.batch, collate_fn=collate_skip_empty, shuffle=True)
-
-    # we'll store the features as NumPy array of size num_images x feature_size
+    
     features = None
-
-    # we'll also store the image labels and paths to visualize them later
     labels = []
     image_paths = []
-
     for batch in tqdm(dataloader, desc='Running the model inference'):
         images = batch['image'].to(device)
         labels += batch['label']
@@ -60,7 +52,6 @@ def get_features(args):
             features = np.concatenate((features, current_features))
         else:
             features = current_features
-
     return features, labels, image_paths
 
 
