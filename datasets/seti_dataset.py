@@ -21,10 +21,9 @@ def make_dataset(train_val_dist):
 class SETIDataset(data.Dataset):
 	'Characterizes a dataset for PyTorch'
 
-	def __init__(self, dataset_dir, num_classes=1, num_images=1000, transform=None):
+	def __init__(self, dataset_dir, num_images=1000, transform=None):
 		'Initialization'
 		self.transform = transform
-		self.num_classes = num_classes
 		self.root_dir = dataset_dir + '/train'
 		train_csv = dataset_dir + '/train_labels.csv'
 		self.data, _ = make_dataset(train_csv)
