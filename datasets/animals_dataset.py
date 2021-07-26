@@ -25,18 +25,18 @@ colors_per_class = {
 # processes Animals10 dataset: https://www.kaggle.com/alessiocorrado99/animals10
 class AnimalsDataset(torch.utils.data.Dataset):
     def __init__(self, dataset_dir, transform = None, num_images=1000):
-        translation = {'cane' : 'dog',
-                       'cavallo' : 'horse',
-                       'elefante' : 'elephant',
-                       'farfalla' : 'butterfly',
-                       'gallina' : 'chicken',
-                       'gatto' : 'cat',
-                       'mucca' : 'cow',
-                       'pecora' : 'sheep',
-                       'ragno' : 'spider',
-                       'scoiattolo' : 'squirrel'}
-        # translation = {'withmask' : 'withmask',
-        #                'withoutmask' : 'withoutmask'}
+        # translation = {'cane' : 'dog',
+        #                'cavallo' : 'horse',
+        #                'elefante' : 'elephant',
+        #                'farfalla' : 'butterfly',
+        #                'gallina' : 'chicken',
+        #                'gatto' : 'cat',
+        #                'mucca' : 'cow',
+        #                'pecora' : 'sheep',
+        #                'ragno' : 'spider',
+        #                'scoiattolo' : 'squirrel'}
+        translation = {'withmask' : 'withmask',
+                       'withoutmask' : 'withoutmask'}
 
         self.classes = translation.values()
 
